@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonar Taliptip — Proposal Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #0C0C0C; font-family: 'Kanit', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+
+    /* Hero heading gradient */
+    .hero-heading {
+      background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+      position: relative;
+      z-index: 20;
+    }
+    nav a {
+      color: #D7E2EA;
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: clamp(0.75rem, 1.2vw, 1.2rem);
+      transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 0.6; }
+
+    /* Hero */
+    #hero {
+      height: 100svh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-title-wrap { overflow: hidden; }
+    .hero-title {
+      font-size: clamp(3rem, 14vw, 17vw);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      white-space: nowrap;
+      width: 100%;
+      display: block;
+      margin-top: clamp(0.5rem, 2vw, 2rem);
+      padding: 0 1rem;
+    }
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 2.5rem 2rem;
+      margin-top: auto;
+      position: relative;
+      z-index: 20;
+    }
+    .hero-tagline {
+      color: #D7E2EA;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      font-size: clamp(0.65rem, 1.3vw, 1.1rem);
+      max-width: 220px;
+    }
+    .hero-portrait {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      z-index: 10;
+      width: clamp(200px, 35vw, 500px);
+      pointer-events: none;
+    }
+    .hero-portrait img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 0 60px rgba(182, 0, 168, 0.15));
+    }
+
+    /* Contact Button */
+    .btn-contact {
+      background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+      box-shadow: 0px 4px 4px rgba(181,1,167,0.25), inset 4px 4px 12px #7721B1;
+      outline: 2px solid white;
+      outline-offset: -3px;
+      color: white;
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: clamp(0.65rem, 1vw, 0.9rem);
+      padding: clamp(0.6rem, 1.2vw, 1rem) clamp(1.5rem, 3vw, 3rem);
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-contact:hover {
+      transform: scale(1.04);
+      box-shadow: 0px 8px 24px rgba(181,1,167,0.4), inset 4px 4px 12px #7721B1;
+    }
+
+    /* Ghost button */
+    .btn-ghost {
+      border: 2px solid #D7E2EA;
+      color: #D7E2EA;
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: clamp(0.65rem, 1vw, 0.9rem);
+      padding: clamp(0.5rem, 1vw, 0.85rem) clamp(1.2rem, 2.5vw, 2.5rem);
+      border-radius: 9999px;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(215,226,234,0.1); }
+
+    /* ───── MARQUEE ───── */
+    #marquee {
+      background: #0C0C0C;
+      padding: clamp(4rem, 8vw, 10rem) 0 2rem;
+      overflow: hidden;
+    }
+    .marquee-row { display: flex; gap: 12px; margin-bottom: 12px; will-change: transform; }
+    .marquee-tile {
+      flex-shrink: 0;
+      width: 340px;
+      height: 220px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .marquee-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ───── ABOUT ───── */
+    #about {
+      background: #0C0C0C;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 5rem clamp(1rem, 5vw, 4rem);
+      text-align: center;
+    }
+    .about-deco { position: absolute; pointer-events: none; }
+    .about-deco img { display: block; }
+    .about-heading {
+      font-size: clamp(3rem, 12vw, 140px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 2.5rem;
+    }
+    .about-text {
+      color: #D7E2EA;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.7;
+      max-width: 560px;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      margin-bottom: 3rem;
+    }
+    .about-text .char { display: inline; opacity: 0.15; transition: opacity 0.05s; }
+
+    /* ───── SERVICES ───── */
+    #services {
+      background: #FFFFFF;
+      border-radius: 50px 50px 0 0;
+      padding: clamp(3rem, 6vw, 8rem) clamp(1rem, 5vw, 4rem);
+    }
+    .services-heading {
+      font-size: clamp(3rem, 12vw, 140px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: #0C0C0C;
+      text-align: center;
+      margin-bottom: clamp(2.5rem, 5vw, 5rem);
+    }
+    .services-list { max-width: 900px; margin: 0 auto; }
+    .service-item {
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(1rem, 3vw, 3rem);
+      padding: clamp(1.5rem, 3vw, 3rem) 0;
+      border-top: 1px solid rgba(12,12,12,0.15);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .service-item:last-child { border-bottom: 1px solid rgba(12,12,12,0.15); }
+    .service-item.visible { opacity: 1; transform: translateY(0); }
+    .service-num {
+      font-size: clamp(2.5rem, 8vw, 100px);
+      font-weight: 900;
+      color: #0C0C0C;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: clamp(3rem, 8vw, 7rem);
+    }
+    .service-content { flex: 1; padding-top: 0.5rem; }
+    .service-name {
+      font-size: clamp(1rem, 2vw, 1.8rem);
+      font-weight: 500;
+      text-transform: uppercase;
+      color: #0C0C0C;
+      margin-bottom: 0.5rem;
+    }
+    .service-desc {
+      font-size: clamp(0.8rem, 1.4vw, 1.1rem);
+      font-weight: 300;
+      color: #0C0C0C;
+      opacity: 0.6;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    /* ───── PROJECTS ───── */
+    #projects {
+      background: #0C0C0C;
+      border-radius: 50px 50px 0 0;
+      margin-top: -40px;
+      position: relative;
+      z-index: 10;
+      padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 3rem);
+      padding-bottom: 4rem;
+    }
+    .projects-heading {
+      font-size: clamp(3rem, 12vw, 140px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      text-align: center;
+      margin-bottom: clamp(2.5rem, 5vw, 5rem);
+    }
+    .projects-stack { position: relative; }
+    .project-slot {
+      height: 85vh;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+    }
+    .project-card {
+      position: sticky;
+      top: 6rem;
+      width: 100%;
+      border-radius: 40px;
+      border: 2px solid #D7E2EA;
+      background: #0C0C0C;
+      padding: clamp(1rem, 2.5vw, 2rem);
+      transform-origin: top center;
+      will-change: transform;
+    }
+    .project-card-top {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.5rem, 2vw, 2rem);
+      margin-bottom: clamp(1rem, 2vw, 2rem);
+      flex-wrap: wrap;
+    }
+    .project-num {
+      font-size: clamp(2.5rem, 7vw, 90px);
+      font-weight: 900;
+      line-height: 1;
+    }
+    .project-meta { flex: 1; }
+    .project-category {
+      color: #D7E2EA;
+      font-size: clamp(0.6rem, 1vw, 0.85rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    .project-name {
+      color: #D7E2EA;
+      font-size: clamp(1rem, 2.5vw, 2.2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .project-images {
+      display: flex;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .project-col1 { flex: 0 0 40%; display: flex; flex-direction: column; gap: clamp(0.5rem, 1vw, 0.75rem); }
+    .project-col2 { flex: 1; }
+    .project-img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 24px;
+      display: block;
+      background: #1a1a2e;
+    }
+    .project-img-top { height: clamp(110px, 15vw, 200px); }
+    .project-img-bot { height: clamp(140px, 20vw, 300px); }
+    .project-img-tall { height: 100%; min-height: clamp(260px, 36vw, 510px); }
+
+    /* ───── FOOTER ───── */
+    footer {
+      background: #0C0C0C;
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #D7E2EA;
+      opacity: 0.4;
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ───── FADE IN UTILITY ───── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.25,0.1,0.25,1), transform 0.7s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .fade-in.fade-x-left { transform: translateX(-80px); }
+    .fade-in.fade-x-right { transform: translateX(80px); }
+    .fade-in.visible { opacity: 1; transform: translate(0,0); }
+
+    /* Stagger helpers */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+
+    /* Magnet cursor hint */
+    .magnet-wrap { display: inline-block; transition: transform 0.3s ease-out; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.2rem; }
+      .hero-bottom { padding: 0 1.2rem 1.5rem; }
+      .about-deco { display: none; }
+      #services { border-radius: 30px 30px 0 0; }
+      #projects { border-radius: 30px 30px 0 0; }
+      .project-card { border-radius: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════ HERO ══════════════════════════════════════ -->
+<section id="hero">
+  <nav class="fade-in" id="nav-bar">
+    <a href="#about">About</a>
+    <a href="#resume-anchor">Resume</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="hero-title-wrap">
+    <h1 class="hero-heading hero-title fade-in delay-2" id="hero-title">Hi, i&apos;m jonar</h1>
+  </div>
+
+  <div class="hero-portrait" id="hero-portrait">
+    <img src="https://alpha-azy.pages.dev/assets/images/my-avatar.png" alt="Jonar Taliptip" />
+  </div>
+
+  <div class="hero-bottom">
+    <p class="hero-tagline fade-in delay-4">
+      A proposal engineer crafting precise, technical &amp; impactful project solutions
+    </p>
+    <a href="#contact" class="btn-contact fade-in delay-5">Contact Me</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ MARQUEE ══════════════════════════════════════ -->
+<section id="marquee">
+  <div class="marquee-row" id="row1"></div>
+  <div class="marquee-row" id="row2"></div>
+</section>
+
+<!-- ══════════════════════════════════════ ABOUT ══════════════════════════════════════ -->
+<section id="about">
+  <!-- Decorative corners -->
+  <div class="about-deco fade-in fade-x-left delay-1" style="top:4%;left:2%;">
+    <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png"
+         alt="" width="160" />
+  </div>
+  <div class="about-deco fade-in fade-x-left delay-3" style="bottom:8%;left:6%;">
+    <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png"
+         alt="" width="130" />
+  </div>
+  <div class="about-deco fade-in fade-x-right delay-2" style="top:4%;right:2%;">
+    <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png"
+         alt="" width="160" />
+  </div>
+  <div class="about-deco fade-in fade-x-right delay-4" style="bottom:8%;right:6%;">
+    <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png"
+         alt="" width="170" />
+  </div>
+
+  <h2 class="hero-heading about-heading fade-in">About me</h2>
+
+  <p class="about-text" id="about-text">
+    With over nine years of experience in civil engineering and technical design, I focus on
+    building design, CAD drafting, cost estimation, and virtual engineering support. I truly enjoy
+    partnering with businesses and contractors who aim to build with precision and excellence.
+    Let&apos;s build something incredible together!
+  </p>
+
+  <a href="#contact" class="btn-contact fade-in delay-3">Contact Me</a>
+</section>
+
+<!-- ══════════════════════════════════════ SERVICES ══════════════════════════════════════ -->
+<section id="services">
+  <h2 class="services-heading">Services</h2>
+  <div class="services-list">
+    <div class="service-item">
+      <span class="service-num">01</span>
+      <div class="service-content">
+        <div class="service-name">Engineering Design</div>
+        <div class="service-desc">Structural and architectural design of buildings and infrastructure, delivering precise, code-compliant drawings tailored to client requirements across residential, commercial, and government projects.</div>
+      </div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">02</span>
+      <div class="service-content">
+        <div class="service-name">CAD Drafting</div>
+        <div class="service-desc">Professional computer-aided drafting and detailing using industry-standard software, producing accurate construction documents, shop drawings, and as-built plans ready for permitting and execution.</div>
+      </div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">03</span>
+      <div class="service-content">
+        <div class="service-name">Cost Estimation &amp; QS</div>
+        <div class="service-desc">Comprehensive quantity surveying and cost estimation services covering material takeoffs, labor costing, and budget forecasting to keep projects financially on track from concept to completion.</div>
+      </div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">04</span>
+      <div class="service-content">
+        <div class="service-name">Project Management</div>
+        <div class="service-desc">End-to-end coordination of construction projects — managing timelines, subcontractors, compliance, and stakeholder communication to ensure delivery on time and within budget.</div>
+      </div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">05</span>
+      <div class="service-content">
+        <div class="service-name">Virtual Engineering Assistant</div>
+        <div class="service-desc">Remote engineering support covering drafting, permitting, structural reviews, and technical documentation for clients and firms across the US, UAE, and beyond.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ PROJECTS ══════════════════════════════════════ -->
+<section id="projects">
+  <h2 class="hero-heading projects-heading">Projects</h2>
+
+  <div class="projects-stack" id="projects-stack">
+
+    <!-- Card 1 -->
+    <div class="project-slot">
+      <div class="project-card" data-index="0">
+        <div class="project-card-top">
+          <span class="hero-heading project-num">01</span>
+          <div class="project-meta">
+            <div class="project-category">Structural Engineering · Client — UAE</div>
+            <div class="project-name">DUCORR Phase 1</div>
+          </div>
+          <a href="https://www.ducorr.com/" target="_blank" class="btn-ghost">View Project</a>
+        </div>
+        <div class="project-images">
+          <div class="project-col1">
+            <img class="project-img project-img-top" src="https://alpha-azy.pages.dev/assets/images/logo-1-color.png" alt="DUCORR" style="object-fit:contain;padding:1rem;background:#111;" />
+            <div class="project-img project-img-bot" style="background:linear-gradient(135deg,#0f0f1a,#1a0a2e);display:flex;align-items:center;justify-content:center;color:#7721B1;font-size:clamp(0.7rem,1.5vw,1rem);font-weight:500;text-transform:uppercase;letter-spacing:0.1em;text-align:center;padding:1rem;">
+              Reduced steel area<br/>cost by 11.7%
+            </div>
+          </div>
+          <div class="project-col2">
+            <img class="project-img project-img-tall" src="https://alpha-azy.pages.dev/assets/images/my-avatar.png" alt="Jonar" style="object-fit:cover;object-position:top;" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="project-slot">
+      <div class="project-card" data-index="1">
+        <div class="project-card-top">
+          <span class="hero-heading project-num">02</span>
+          <div class="project-meta">
+            <div class="project-category">Virtual Engineering · Client — USA</div>
+            <div class="project-name">Golden Lion Real Estate</div>
+          </div>
+          <a href="#" class="btn-ghost">View Project</a>
+        </div>
+        <div class="project-images">
+          <div class="project-col1">
+            <img class="project-img project-img-top" src="https://alpha-azy.pages.dev/assets/images/logo-3-color.png" alt="Golden Lion" style="object-fit:contain;padding:1rem;background:#111;" />
+            <div class="project-img project-img-bot" style="background:linear-gradient(135deg,#0a1a0a,#0a2e1a);display:flex;align-items:center;justify-content:center;color:#00B86B;font-size:clamp(0.7rem,1.5vw,1rem);font-weight:500;text-transform:uppercase;letter-spacing:0.1em;text-align:center;padding:1rem;">
+              25 projects<br/>managed remotely
+            </div>
+          </div>
+          <div class="project-col2">
+            <div class="project-img project-img-tall" style="background:linear-gradient(160deg,#050510,#0a0a2a,#12122e);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;">
+              <span style="color:#D7E2EA;font-size:clamp(2rem,5vw,5rem);font-weight:900;line-height:1;">25</span>
+              <span style="color:#D7E2EA;font-size:clamp(0.65rem,1.2vw,1rem);font-weight:300;text-transform:uppercase;letter-spacing:0.15em;opacity:0.6;text-align:center;">Projects · Drafting to<br/>building permit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="project-slot">
+      <div class="project-card" data-index="2">
+        <div class="project-card-top">
+          <span class="hero-heading project-num">03</span>
+          <div class="project-meta">
+            <div class="project-category">Project Management · Government — PH</div>
+            <div class="project-name">DSWD Alabang Facility</div>
+          </div>
+          <a href="#" class="btn-ghost">View Project</a>
+        </div>
+        <div class="project-images">
+          <div class="project-col1">
+            <div class="project-img project-img-top" style="background:linear-gradient(135deg,#1a0a0a,#2e1a0a);display:flex;align-items:center;justify-content:center;color:#B86000;font-size:clamp(0.65rem,1.3vw,0.95rem);font-weight:500;text-transform:uppercase;letter-spacing:0.1em;text-align:center;padding:1rem;">
+              ₱12M<br/>Government Contract
+            </div>
+            <div class="project-img project-img-bot" style="background:linear-gradient(135deg,#0a0a1a,#1a1a2e);display:flex;align-items:center;justify-content:center;color:#5B7BFF;font-size:clamp(0.65rem,1.3vw,0.95rem);font-weight:500;text-transform:uppercase;letter-spacing:0.1em;text-align:center;padding:1rem;">
+              Elsie Gaches<br/>Village — Children's<br/>Special Needs
+            </div>
+          </div>
+          <div class="project-col2">
+            <div class="project-img project-img-tall" style="background:linear-gradient(160deg,#080812,#10101f,#1c1c30);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;">
+              <span style="color:#D7E2EA;font-size:clamp(1.5rem,4vw,4rem);font-weight:900;line-height:1;">₱12M</span>
+              <span style="color:#D7E2EA;font-size:clamp(0.65rem,1.2vw,1rem);font-weight:300;text-transform:uppercase;letter-spacing:0.15em;opacity:0.6;text-align:center;">Successfully delivered<br/>on time &amp; on budget</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /projects-stack -->
+</section>
+
+<!-- ══════════════════════════════════════ CONTACT ANCHOR ══════════════════════════════════════ -->
+<section id="contact" style="background:#0C0C0C;padding:clamp(3rem,6vw,6rem) clamp(1rem,5vw,4rem);text-align:center;">
+  <h2 class="hero-heading" style="font-size:clamp(2.5rem,10vw,120px);font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;line-height:1;margin-bottom:2rem;">
+    Let&apos;s work<br/>together
+  </h2>
+  <p style="color:#D7E2EA;font-weight:300;font-size:clamp(0.9rem,1.8vw,1.2rem);opacity:0.7;max-width:480px;margin:0 auto 3rem;line-height:1.6;text-transform:uppercase;letter-spacing:0.05em;">
+    Based in Caloocan City, Metro Manila, PH — available for remote and on-site projects worldwide.
+  </p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;">
+    <a href="mailto:jonartaliptip@gmail.com" class="btn-contact">jonartaliptip@gmail.com</a>
+    <a href="tel:+639061896541" class="btn-ghost">+63 906 189 6541</a>
+  </div>
+  <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/jonartaliptip/" target="_blank" style="color:#D7E2EA;text-decoration:none;font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">LinkedIn</a>
+    <a href="https://www.facebook.com/jnrtlptp/" target="_blank" style="color:#D7E2EA;text-decoration:none;font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">Facebook</a>
+    <a href="https://www.youtube.com/@jtsecretsauce" target="_blank" style="color:#D7E2EA;text-decoration:none;font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">YouTube</a>
+    <a href="https://wa.me/639061896541" target="_blank" style="color:#D7E2EA;text-decoration:none;font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <span id="resume-anchor"></span>
+  &copy; <span id="yr"></span> Jonar Taliptip — Proposal Engineer · Caloocan City, PH
+</footer>
+
+<script>
+// ── Year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// ── Marquee images
+const imgs = [
+  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
+  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
+  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
+  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
+  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
+  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
+  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
+  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
+  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
+  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
+  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
+  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
+  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
+  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
+  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
+  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
+  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
+  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
+  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif'
+];
+const row1imgs = imgs.slice(0, 11);
+const row2imgs = imgs.slice(11);
+
+function buildRow(el, arr) {
+  const tripled = [...arr, ...arr, ...arr];
+  tripled.forEach(src => {
+    const div = document.createElement('div');
+    div.className = 'marquee-tile';
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = '';
+    img.loading = 'lazy';
+    div.appendChild(img);
+    el.appendChild(div);
+  });
+}
+buildRow(document.getElementById('row1'), row1imgs);
+buildRow(document.getElementById('row2'), row2imgs);
+
+// ── Scroll-driven marquee
+const marqSection = document.getElementById('marquee');
+const row1El = document.getElementById('row1');
+const row2El = document.getElementById('row2');
+
+function updateMarquee() {
+  const rect = marqSection.getBoundingClientRect();
+  const sectionTop = window.scrollY + rect.top;
+  const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
+  row1El.style.transform = `translateX(${offset - 200}px)`;
+  row2El.style.transform = `translateX(${-(offset - 200)}px)`;
+}
+window.addEventListener('scroll', updateMarquee, { passive: true });
+updateMarquee();
+
+// ── IntersectionObserver for fade-ins
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { rootMargin: '0px 0px -50px 0px', threshold: 0 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+document.querySelectorAll('.service-item').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.1}s`;
+  observer.observe(el);
+});
+
+// Trigger hero immediately
+requestAnimationFrame(() => {
+  document.querySelectorAll('#hero .fade-in, #nav-bar').forEach(el => {
+    el.classList.add('visible');
+  });
+});
+
+// ── About text character animation
+const aboutText = document.getElementById('about-text');
+const rawText = aboutText.textContent;
+aboutText.innerHTML = '';
+[...rawText].forEach(ch => {
+  const span = document.createElement('span');
+  span.className = 'char';
+  span.textContent = ch === ' ' ? '\u00A0' : ch;
+  aboutText.appendChild(span);
+});
+const chars = aboutText.querySelectorAll('.char');
+
+function updateChars() {
+  const rect = aboutText.getBoundingClientRect();
+  const wh = window.innerHeight;
+  const progress = 1 - (rect.top / (wh * 0.8));
+  const total = chars.length;
+  chars.forEach((ch, i) => {
+    const threshold = i / total;
+    const opacity = Math.min(1, Math.max(0.15, (progress - threshold * 0.5) * 4));
+    ch.style.opacity = opacity;
+  });
+}
+window.addEventListener('scroll', updateChars, { passive: true });
+updateChars();
+
+// ── Project card stacking scale
+const cards = document.querySelectorAll('.project-card');
+const totalCards = cards.length;
+
+function updateCards() {
+  const scrollY = window.scrollY;
+  cards.forEach((card, i) => {
+    const slot = card.parentElement;
+    const slotTop = slot.getBoundingClientRect().top + scrollY;
+    const slotH = slot.offsetHeight;
+    const progress = (scrollY - slotTop) / slotH;
+    const targetScale = 1 - (totalCards - 1 - i) * 0.03;
+    const scale = 1 - Math.max(0, Math.min(1, progress)) * (1 - targetScale);
+    card.style.transform = `scale(${scale})`;
+    card.style.top = `${6 + i * 1.5}rem`;
+  });
+}
+window.addEventListener('scroll', updateCards, { passive: true });
+updateCards();
+
+// ── Magnet effect on portrait
+(function() {
+  const portrait = document.getElementById('hero-portrait');
+  if (!portrait) return;
+  let active = false;
+  const PADDING = 150, STRENGTH = 3;
+
+  document.addEventListener('mousemove', (e) => {
+    const rect = portrait.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const radius = Math.max(rect.width, rect.height) / 2 + PADDING;
+
+    if (dist < radius) {
+      portrait.style.transition = 'transform 0.3s ease-out';
+      portrait.style.transform = `translateX(calc(-50% + ${dx / STRENGTH}px)) translateY(${dy / STRENGTH}px)`;
+      active = true;
+    } else if (active) {
+      portrait.style.transition = 'transform 0.6s ease-in-out';
+      portrait.style.transform = 'translateX(-50%)';
+      active = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
